@@ -20,8 +20,10 @@ function App() {
     addDoc(collection(db, "posts"), post)
     }
 
-    function getAllPosts() {
-      const data = await getDocs(collection(db, "posts"));
+    async function getAllPosts() {
+      const { docs } = await getDocs(collection(db, "posts"));
+      const posts = docs.map(elem => ({...elem.data(), id: elem.id}));
+      console.log(posts);
     }
       
    React.useEffect(() => {
@@ -69,6 +71,7 @@ function App() {
        <button onClick={logout}>Logout</button>  
        {loading ? 'Loading...' : user?.email}
        <button onClick={createPost}>Create Post</button>
+       <button onClick={getAllPosts}>Get All Posts</button>
     </div>
   );
 }
