@@ -10,6 +10,7 @@ import {
   query,
   where,
   updateDoc,
+  deleteDoc,
 } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
@@ -32,6 +33,12 @@ async function updatePost() {
         title: "Land a $300k job"
     };
     updateDoc(postRef, newPost);
+  }
+
+  function deletePost() {
+    const hardcodedId = "3fCvn7u3QtcGKj06F0B8";
+    const postRef = doc(db, "posts", hardcodedId);
+    deleteDoc(postRef);
   }
 
   React.useEffect(() => {
@@ -121,6 +128,7 @@ async function updatePost() {
       <button onClick={getPostById}>Get Post By Id</button>
       <button onClick={getPostByUid}>Get Post By Uid</button>
       <button onClick={updatePost}>Update Post</button>
+      <button onClick={deletePost}>Delete Post</button>
     </div>
   );
 }
