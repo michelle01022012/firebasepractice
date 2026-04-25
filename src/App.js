@@ -62,7 +62,14 @@ function App() {
     console.log(post);
   }
 
-  function register() {
+  async function getPostByUid() {
+    const postCollectionRef = await query(
+      collection(db, "posts"),
+      where("uid", "==", user.uid),
+      console.log(docs);
+   }
+
+    function register() {
     createUserWithEmailAndPassword(auth, "myemail@email.com", "test123")
       .then((userCredential) => {
         console.log(userCredential.user.toJSON());
@@ -99,6 +106,7 @@ function App() {
       <button onClick={createPost}>Create Post</button>
       <button onClick={getAllPosts}>Get All Posts</button>
       <button onClick={getPostById}>Get Post By Id</button>
+      <Button onClick={getPostByUid}>Get Post By Uid</Button>
     </div>
   );
 }
