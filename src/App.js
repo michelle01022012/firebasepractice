@@ -14,8 +14,8 @@ function App() {
 
    function createPost() {
     const post = {
-      title: "Land a 100K job",
-      description: "Finish Front End Simplified",
+      title: "Finish Firebase Section",
+      description: "Do Front End Simplified",
       uid: user.uid,
       };
     addDoc(collection(db, "posts"), post)
