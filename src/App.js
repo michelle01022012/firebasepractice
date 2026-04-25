@@ -9,6 +9,7 @@ import {
   doc,
   query,
   where,
+  updateDoc,
 } from "firebase/firestore";
 import {
   createUserWithEmailAndPassword,
@@ -20,6 +21,17 @@ import {
 function App() {
   const [user, setUser] = React.useState(null);
   const [loading, setLoading] = React.useState(true);
+
+function updatePost() {
+   const hardcodedId = "3fCvn7u3QtcGKj06F0B8";
+   const postRef = doc(db, "posts", hardcodedId);
+   const post = {
+      description: "Finish Interview Section",
+      uid: "1",
+      title: "Land a $300k job"
+    };
+    updateDoc(postRef, newPost);
+  }
 
   React.useEffect(() => {
     onAuthStateChanged(auth, (currentUser) => {
@@ -66,8 +78,10 @@ function App() {
     const postCollectionRef = await query(
       collection(db, "posts"),
       where("uid", "==", user.uid),
-      console.log(docs);
-   }
+    );
+    const querySnapshot = await getDocs(postCollectionRef);
+    console.log(querySnapshot.docs);
+  }
 
     function register() {
     createUserWithEmailAndPassword(auth, "myemail@email.com", "test123")
@@ -106,7 +120,8 @@ function App() {
       <button onClick={createPost}>Create Post</button>
       <button onClick={getAllPosts}>Get All Posts</button>
       <button onClick={getPostById}>Get Post By Id</button>
-      <Button onClick={getPostByUid}>Get Post By Uid</Button>
+      <button onClick={getPostByUid}>Get Post By Uid</button>
+      <button onClick={updatePost}>Update Post</button>
     </div>
   );
 }
