@@ -18,7 +18,7 @@ function App() {
       description: "Do Front End Simplified",
       uid: user.uid,
       };
-    addDoc(collection(db, "posts"), post)
+    addDoc(collection(db, "posts"), post);
     }
 
     async function getAllPosts() {
@@ -34,6 +34,14 @@ function App() {
       const post = postSnap.data();
       console.log(post);
     }
+
+    async function getPostByUid() {
+      const postCollectionRef = await query(
+        collection(db, "posts"),
+        where("uid", "==", user.uid)
+      )
+    }
+    
    React.useEffect(() => {
   onAuthStateChanged(auth, (user) => {
     setLoading(false);
